@@ -7,6 +7,7 @@ import (
 	"os"
 
 	vision "cloud.google.com/go/vision/apiv1"
+	"google.golang.org/api/option"
 )
 
 func main() {
@@ -16,7 +17,7 @@ func main() {
 	filename := os.Args[1]
 
 	// Creates a client.
-	client, err := vision.NewImageAnnotatorClient(context.Background())
+	client, err := vision.NewImageAnnotatorClient(context.Background(), option.WithCredentialsJSON([]byte(os.Getenv("GOOGLE_KEY"))))
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
